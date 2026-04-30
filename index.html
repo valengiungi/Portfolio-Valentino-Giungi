@@ -960,6 +960,254 @@
       document.body.style.overflow = '';
     }
 
+    // Language detection by IP (with browser fallback)
+    const i18n = {
+      es: {
+        navAbout: 'Sobre mi',
+        navExperience: 'Experiencia',
+        navSkills: 'Skills',
+        navProjects: 'Proyectos',
+        navContact: 'Contacto',
+        heroGreeting: 'Hola, soy<br>Valentino <em>Giungi.</em>',
+        heroSub: 'Tecnico en programacion / Universidad Tecnologica Nacional (UTN).',
+        heroBtnProjects: 'Ver proyectos →',
+        heroBtnContact: 'Contactarme',
+        heroScroll: 'Scroll para explorar',
+        aboutLabel: 'Sobre mi',
+        aboutHeading: 'Desarrollador de software',
+        aboutP1: 'Soy <strong>Valentino Giungi</strong>, tecnico en programacion con tesis aprobada en la <strong>Universidad Tecnologica Nacional (UTN)</strong>, sede Mar del Plata. Me especializo en desarrollo <strong>Full Stack</strong>: desde interfaces de usuario hasta logica de servidor y bases de datos.',
+        aboutP2: 'Priorizo la funcionalidad de los sistemas, las arquitecturas alineadas a problemas concretos y la implementacion de <strong>inteligencia artificial</strong>.',
+        aboutP3: 'Actualmente tengo un proyecto en produccion y otro en desarrollo, siempre buscando nuevos desafios y oportunidades donde aportar valor.',
+        statTech: 'Tecnologias dominadas',
+        statSubjects: 'Materias aprobadas',
+        expLabel: 'Experiencia',
+        expHeading: 'Trayectoria laboral',
+        exp1Period: '3 anos',
+        exp1Role: 'Atencion al cliente',
+        exp1Desc: 'Desarrollo de tareas operativas y de atencion directa al publico en un entorno de alto ritmo. Participacion en procesos diarios con foco en calidad de servicio, cumplimiento de estandares y trabajo coordinado con el equipo.',
+        exp1L1: 'Gestion de atencion al cliente, servicio en mesas y cafeteria.',
+        exp1L2: 'Colaboracion con el equipo para mantener eficiencia, orden y consistencia en la experiencia del cliente.',
+        exp2Period: '4 meses',
+        exp2Role: 'Experiencia internacional',
+        exp2Company: 'Work and Travel',
+        exp2Desc: 'Participacion en un programa internacional de trabajo y formacion practica, con adaptacion a una nueva cultura laboral y cumplimiento de objetivos en equipos multiculturales.',
+        exp2L1: 'Adaptacion rapida a procesos, normas y dinamicas de trabajo en contexto internacional.',
+        exp2L2: 'Comunicacion efectiva con equipos diversos y orientacion a resultados.',
+        exp2L3: 'Uso cotidiano de ingles para comunicacion laboral, coordinacion de tareas y atencion al publico.',
+        exp2L4: 'Fortalecimiento de autonomia, responsabilidad y capacidad de resolucion en escenarios nuevos.',
+        skillsLabel: 'Habilidades',
+        skillsHeading: 'Stack tecnologico',
+        projectsLabel: 'Proyectos',
+        projectsHeading: 'Portfolio',
+        project1Tag: 'Producto Desarrollado',
+        project1Desc: 'Centro de estadisticas y analisis de la NBA en tiempo real. Los usuarios pueden explorar datos actualizados de partidos, jugadores y equipos, ademas de participar en juegos de interaccion entre la comunidad.',
+        project1Link: 'Ver proyecto →',
+        project2Wip: 'En desarrollo',
+        project2Tag: 'Proyecto en produccion',
+        project2Desc: 'Actualmente en etapa de desarrollo. Nuevas ideas, nuevas tecnologias. Segui de cerca mis repositorios para ver el avance.',
+        project2Link: 'Ver GitHub →',
+        contactLabel: 'Contacto',
+        contactHeading: '¿Trabajamos juntos?',
+        contactIntroStrong: 'Estoy disponible para proyectos freelance, posiciones en empresas y colaboraciones.',
+        contactIntroText: 'Si buscas un desarrollador comprometido, con ganas de aprender y de aportar valor real desde el dia uno, no dudes en escribirme.',
+        footerMade: 'Hecho con <span>♥</span> en Argentina'
+      },
+      en: {
+        navAbout: 'About',
+        navExperience: 'Experience',
+        navSkills: 'Skills',
+        navProjects: 'Projects',
+        navContact: 'Contact',
+        heroGreeting: 'Hi, I am<br>Valentino <em>Giungi.</em>',
+        heroSub: 'Programming technician / National Technological University (UTN).',
+        heroBtnProjects: 'View projects →',
+        heroBtnContact: 'Contact me',
+        heroScroll: 'Scroll to explore',
+        aboutLabel: 'About',
+        aboutHeading: 'Software developer',
+        aboutP1: 'I am <strong>Valentino Giungi</strong>, a programming technician with an approved thesis at the <strong>National Technological University (UTN)</strong>, Mar del Plata campus. I specialize in <strong>Full Stack</strong> development: from user interfaces to server-side logic and databases.',
+        aboutP2: 'I prioritize system functionality, architectures aligned with concrete problems, and artificial intelligence implementation.',
+        aboutP3: 'I currently have one project in production and another in development, always looking for new challenges and opportunities to add value.',
+        statTech: 'Technologies mastered',
+        statSubjects: 'Courses completed',
+        expLabel: 'Experience',
+        expHeading: 'Work experience',
+        exp1Period: '3 years',
+        exp1Role: 'Customer service',
+        exp1Desc: 'Operational and direct customer-facing work in a high-paced environment. Daily process execution focused on service quality, standards compliance, and coordinated teamwork.',
+        exp1L1: 'Customer support management, table service, and cafeteria tasks.',
+        exp1L2: 'Team collaboration to maintain efficiency, order, and consistency in customer experience.',
+        exp2Period: '4 months',
+        exp2Role: 'International experience',
+        exp2Company: 'Work and Travel',
+        exp2Desc: 'Participation in an international work and practical training program, adapting to a new work culture while meeting goals in multicultural teams.',
+        exp2L1: 'Fast adaptation to processes, standards, and work dynamics in an international context.',
+        exp2L2: 'Effective communication with diverse teams and results-oriented execution.',
+        exp2L3: 'Daily use of English for workplace communication, task coordination, and customer service.',
+        exp2L4: 'Stronger autonomy, responsibility, and problem-solving in new scenarios.',
+        skillsLabel: 'Skills',
+        skillsHeading: 'Technology stack',
+        projectsLabel: 'Projects',
+        projectsHeading: 'Portfolio',
+        project1Tag: 'Delivered Product',
+        project1Desc: 'Real-time NBA statistics and analytics hub. Users can explore up-to-date game, player, and team data, and also participate in community interaction games.',
+        project1Link: 'View project →',
+        project2Wip: 'In progress',
+        project2Tag: 'Production project',
+        project2Desc: 'Currently in development. New ideas, new technologies. Follow my repositories closely to track progress.',
+        project2Link: 'View GitHub →',
+        contactLabel: 'Contact',
+        contactHeading: 'Shall we work together?',
+        contactIntroStrong: 'I am available for freelance projects, company roles, and collaborations.',
+        contactIntroText: 'If you are looking for a committed developer, ready to learn and deliver value from day one, feel free to contact me.',
+        footerMade: 'Made with <span>♥</span> in Argentina'
+      },
+      pt: {
+        navAbout: 'Sobre mim',
+        navExperience: 'Experiencia',
+        navSkills: 'Skills',
+        navProjects: 'Projetos',
+        navContact: 'Contato',
+        heroGreeting: 'Ola, sou<br>Valentino <em>Giungi.</em>',
+        heroSub: 'Tecnico em programacao / Universidade Tecnologica Nacional (UTN).',
+        heroBtnProjects: 'Ver projetos →',
+        heroBtnContact: 'Entrar em contato',
+        heroScroll: 'Role para explorar',
+        aboutLabel: 'Sobre mim',
+        aboutHeading: 'Desenvolvedor de software',
+        aboutP1: 'Sou <strong>Valentino Giungi</strong>, tecnico em programacao com tese aprovada na <strong>Universidade Tecnologica Nacional (UTN)</strong>, campus de Mar del Plata. Sou especializado em desenvolvimento <strong>Full Stack</strong>: de interfaces ate logica de servidor e bancos de dados.',
+        aboutP2: 'Priorizo funcionalidade dos sistemas, arquiteturas alinhadas a problemas concretos e implementacao de inteligencia artificial.',
+        aboutP3: 'Atualmente tenho um projeto em producao e outro em desenvolvimento, sempre buscando novos desafios e oportunidades para gerar valor.',
+        statTech: 'Tecnologias dominadas',
+        statSubjects: 'Disciplinas concluidas',
+        expLabel: 'Experiencia',
+        expHeading: 'Trajetoria profissional',
+        exp1Period: '3 anos',
+        exp1Role: 'Atendimento ao cliente',
+        exp1Desc: 'Atuacao operacional e atendimento direto ao publico em ambiente de alto ritmo. Participacao em processos diarios com foco em qualidade, padroes e trabalho em equipe.',
+        exp1L1: 'Gestao de atendimento ao cliente, servico de mesa e cafeteria.',
+        exp1L2: 'Colaboracao com a equipe para manter eficiencia, organizacao e consistencia na experiencia do cliente.',
+        exp2Period: '4 meses',
+        exp2Role: 'Experiencia internacional',
+        exp2Company: 'Work and Travel',
+        exp2Desc: 'Participacao em programa internacional de trabalho e formacao pratica, com adaptacao a nova cultura de trabalho e cumprimento de metas em equipes multiculturais.',
+        exp2L1: 'Adaptacao rapida a processos, normas e dinamicas de trabalho em contexto internacional.',
+        exp2L2: 'Comunicacao efetiva com equipes diversas e foco em resultados.',
+        exp2L3: 'Uso diario de ingles para comunicacao profissional, coordenacao de tarefas e atendimento.',
+        exp2L4: 'Fortalecimento de autonomia, responsabilidade e resolucao de problemas em cenarios novos.',
+        skillsLabel: 'Habilidades',
+        skillsHeading: 'Stack tecnologico',
+        projectsLabel: 'Projetos',
+        projectsHeading: 'Portfolio',
+        project1Tag: 'Produto desenvolvido',
+        project1Desc: 'Centro de estatisticas e analise da NBA em tempo real. Usuarios podem explorar dados atualizados de jogos, jogadores e equipes, alem de participar de dinamicas da comunidade.',
+        project1Link: 'Ver projeto →',
+        project2Wip: 'Em desenvolvimento',
+        project2Tag: 'Projeto em producao',
+        project2Desc: 'Atualmente em desenvolvimento. Novas ideias, novas tecnologias. Acompanhe meus repositorios para ver a evolucao.',
+        project2Link: 'Ver GitHub →',
+        contactLabel: 'Contato',
+        contactHeading: 'Vamos trabalhar juntos?',
+        contactIntroStrong: 'Estou disponivel para projetos freelance, vagas em empresas e colaboracoes.',
+        contactIntroText: 'Se voce busca um desenvolvedor comprometido, com vontade de aprender e gerar valor desde o primeiro dia, entre em contato.',
+        footerMade: 'Feito com <span>♥</span> na Argentina'
+      }
+    };
+
+    const countryToLang = {
+      AR: 'es', UY: 'es', CL: 'es', BO: 'es', PE: 'es', EC: 'es', CO: 'es', VE: 'es', PY: 'es', MX: 'es', ES: 'es',
+      BR: 'pt', PT: 'pt'
+    };
+
+    function setNodeText(selector, value, html = false) {
+      const node = document.querySelector(selector);
+      if (!node || !value) return;
+      if (html) node.innerHTML = value;
+      else node.textContent = value;
+    }
+
+    function applyTranslations(lang) {
+      const t = i18n[lang] || i18n.es;
+      document.documentElement.lang = lang;
+
+      setNodeText('.nav-links li:nth-child(1) a', t.navAbout);
+      setNodeText('.nav-links li:nth-child(2) a', t.navExperience);
+      setNodeText('.nav-links li:nth-child(3) a', t.navSkills);
+      setNodeText('.nav-links li:nth-child(4) a', t.navProjects);
+      setNodeText('.nav-links li:nth-child(5) a', t.navContact);
+
+      setNodeText('.mobile-menu a:nth-child(1)', t.navAbout);
+      setNodeText('.mobile-menu a:nth-child(2)', t.navExperience);
+      setNodeText('.mobile-menu a:nth-child(3)', t.navSkills);
+      setNodeText('.mobile-menu a:nth-child(4)', t.navProjects);
+      setNodeText('.mobile-menu a:nth-child(5)', t.navContact);
+
+      setNodeText('.hero-title', t.heroGreeting, true);
+      setNodeText('.hero-sub', t.heroSub);
+      setNodeText('.hero-actions .btn-primary', t.heroBtnProjects);
+      setNodeText('.hero-actions .btn-secondary', t.heroBtnContact);
+      setNodeText('.hero-scroll', `<div class="scroll-line"></div>${t.heroScroll}`, true);
+
+      setNodeText('#about .section-label', t.aboutLabel);
+      setNodeText('#about .section-heading', t.aboutHeading);
+      setNodeText('#about .about-text p:nth-child(1)', t.aboutP1, true);
+      setNodeText('#about .about-text p:nth-child(2)', t.aboutP2, true);
+      setNodeText('#about .about-text p:nth-child(3)', t.aboutP3);
+      setNodeText('#about .about-stats .stat-box:nth-child(1) .stat-label', t.statTech);
+      setNodeText('#about .about-stats .stat-box:nth-child(2) .stat-label', t.statSubjects);
+
+      setNodeText('#experience .section-label', t.expLabel);
+      setNodeText('#experience .section-heading', t.expHeading);
+      setNodeText('#experience .experience-card:nth-child(1) .experience-period', t.exp1Period);
+      setNodeText('#experience .experience-card:nth-child(1) .experience-role', t.exp1Role);
+      setNodeText('#experience .experience-card:nth-child(1) .experience-desc', t.exp1Desc);
+      setNodeText('#experience .experience-card:nth-child(1) .experience-list li:nth-child(1)', t.exp1L1);
+      setNodeText('#experience .experience-card:nth-child(1) .experience-list li:nth-child(2)', t.exp1L2);
+      setNodeText('#experience .experience-card:nth-child(2) .experience-period', t.exp2Period);
+      setNodeText('#experience .experience-card:nth-child(2) .experience-role', t.exp2Role);
+      setNodeText('#experience .experience-card:nth-child(2) .experience-company', t.exp2Company);
+      setNodeText('#experience .experience-card:nth-child(2) .experience-desc', t.exp2Desc);
+      setNodeText('#experience .experience-card:nth-child(2) .experience-list li:nth-child(1)', t.exp2L1);
+      setNodeText('#experience .experience-card:nth-child(2) .experience-list li:nth-child(2)', t.exp2L2);
+      setNodeText('#experience .experience-card:nth-child(2) .experience-list li:nth-child(3)', t.exp2L3);
+      setNodeText('#experience .experience-card:nth-child(2) .experience-list li:nth-child(4)', t.exp2L4);
+
+      setNodeText('#skills .section-label', t.skillsLabel);
+      setNodeText('#skills .section-heading', t.skillsHeading);
+
+      setNodeText('#projects .section-label', t.projectsLabel);
+      setNodeText('#projects .section-heading', t.projectsHeading);
+      setNodeText('#projects .project-card:nth-child(1) .project-tag', t.project1Tag);
+      setNodeText('#projects .project-card:nth-child(1) .project-desc', t.project1Desc);
+      setNodeText('#projects .project-card:nth-child(1) .project-link', t.project1Link);
+      setNodeText('#projects .project-card:nth-child(2) .project-wip', t.project2Wip);
+      setNodeText('#projects .project-card:nth-child(2) .project-tag', t.project2Tag);
+      setNodeText('#projects .project-card:nth-child(2) .project-desc', t.project2Desc);
+      setNodeText('#projects .project-card:nth-child(2) .project-link', t.project2Link);
+
+      setNodeText('#contact .section-label', t.contactLabel);
+      setNodeText('#contact .section-heading', t.contactHeading);
+      setNodeText('#contact .contact-intro strong', t.contactIntroStrong);
+      const contactIntro = document.querySelector('#contact .contact-intro');
+      if (contactIntro) contactIntro.innerHTML = `<strong>${t.contactIntroStrong}</strong><br><br>${t.contactIntroText}`;
+
+      setNodeText('footer .footer-made', t.footerMade, true);
+    }
+
+    async function detectLanguageByIP() {
+      try {
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        const detected = countryToLang[data.country_code] || 'en';
+        applyTranslations(detected);
+      } catch (error) {
+        const browserLang = (navigator.language || 'es').slice(0, 2).toLowerCase();
+        applyTranslations(i18n[browserLang] ? browserLang : 'es');
+      }
+    }
+
+    detectLanguageByIP();
+
     // Reveal on scroll
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
